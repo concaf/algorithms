@@ -25,6 +25,7 @@ func getSmallestElementIndex(input []int) int {
 	pos := 0
 	for i := 1; i < len(input); i++ {
 		if input[i] < smallest {
+			smallest = input[i]
 			pos = i
 		}
 	}
