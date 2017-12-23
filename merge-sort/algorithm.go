@@ -24,18 +24,14 @@ func merge(array1, array2 []int) []int {
 
 	for sortedPos := 0; sortedPos < len(sorted); sortedPos++ {
 		if posArr1 == len(array1) {
-			for r := posArr2; r < len(array2); r++ {
-				sorted[sortedPos] = array2[r]
-				sortedPos++
-			}
-			break
+			sorted[sortedPos] = array2[posArr2]
+			posArr2++
+			continue
 		}
 		if posArr2 == len(array2) {
-			for r := posArr1; r < len(array1); r++ {
-				sorted[sortedPos] = array1[r]
-				sortedPos++
-			}
-			break
+			sorted[sortedPos] = array1[posArr1]
+			posArr1++
+			continue
 		}
 
 		if array1[posArr1] < array2[posArr2] {
