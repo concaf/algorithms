@@ -7,6 +7,8 @@ import (
 	"reflect"
 )
 
+const arrayLength = 15
+
 type logWriter struct {
 }
 
@@ -18,10 +20,10 @@ func main() {
 	log.SetFlags(0)
 	log.SetOutput(new(logWriter))
 
-	toSort := rand.Perm(100)
+	toSort := rand.Perm(arrayLength)
 	selectionSort(toSort)
 
-	if reflect.DeepEqual(toSort, integerSequence(100)) {
+	if reflect.DeepEqual(toSort, integerSequence(arrayLength)) {
 		log.Println("The array has been successfully sorted")
 	} else {
 		log.Println("The array is still unsorted")
