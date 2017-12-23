@@ -32,7 +32,7 @@ func main() {
 
 func integerSequence(n int) []int {
 	var sequence []int
-	for i := 0; i < n ; i++ {
+	for i := 0; i < n; i++ {
 		sequence = append(sequence, i)
 	}
 	return sequence
