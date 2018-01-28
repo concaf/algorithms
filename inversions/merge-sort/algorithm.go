@@ -33,12 +33,6 @@ func merge(array1, array2 []int, inversions [][]int) ([]int, [][]int) {
 		}
 		if posArr2 == len(array2) {
 			sorted[sortedPos] = array1[posArr1]
-
-			for i := range array2 {
-				log.Printf("%v in an inversion", []int{array1[posArr1], array2[i]})
-				inversions = append(inversions, []int{array1[posArr1], array2[i]})
-			}
-
 			posArr1++
 			continue
 		}
@@ -47,9 +41,17 @@ func merge(array1, array2 []int, inversions [][]int) ([]int, [][]int) {
 			sorted[sortedPos] = array1[posArr1]
 			posArr1++
 		} else if array2[posArr2] < array1[posArr1] {
+			// This is the case where the split inversions will occur.
+
+			// Since both the arrays are sorted, we can safely say that the
+			// remaining elements in the first array from the current element on
+			// are all smaller than the current element of the second array.
+			for remainingInArr1 := posArr1; remainingInArr1 < len(array1); remainingInArr1++ {
+			log.Printf("%v in an inversion", []int{array1[remainingInArr1], array2[posArr2]})
+			inversions = append(inversions, []int{array1[remainingInArr1], array2[posArr2]})
+			}
+
 			sorted[sortedPos] = array2[posArr2]
-			log.Printf("%v in an inversion", []int{array1[posArr1], array2[posArr2]})
-			inversions = append(inversions, []int{array1[posArr1], array2[posArr2]})
 			posArr2++
 		}
 	}
