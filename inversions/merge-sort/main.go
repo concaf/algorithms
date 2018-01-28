@@ -22,7 +22,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	toSort := rand.Perm(arrayLength)
 	log.Printf("The input array is: %v", toSort)
-	_, inversions := findInversions(toSort)
+	_, inversions := FindInversions(toSort)
 	log.Printf("Inversions are %v", inversions)
 	log.Printf("Found %v inversions", len(inversions))
 }

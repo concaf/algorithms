@@ -2,7 +2,7 @@ package main
 
 import "log"
 
-func findInversions(input []int) ([]int, [][]int) {
+func FindInversions(input []int) ([]int, [][]int) {
 	var inversions [][]int
 	if len(input) == 0 {
 		log.Fatal("The input array has no elements")
@@ -12,9 +12,9 @@ func findInversions(input []int) ([]int, [][]int) {
 		return input, inversions
 	}
 
-	array1, inv1 := findInversions(input[:len(input)/2])
+	array1, inv1 := FindInversions(input[:len(input)/2])
 	inversions = append(inversions, inv1...)
-	array2, inv2 := findInversions(input[len(input)/2:])
+	array2, inv2 := FindInversions(input[len(input)/2:])
 	inversions = append(inversions, inv2...)
 	return merge(array1, array2, inversions)
 }
