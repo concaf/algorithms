@@ -37,7 +37,8 @@ func merge(array1, array2 []int) []int {
 		if array1[posArr1] < array2[posArr2] {
 			sorted[sortedPos] = array1[posArr1]
 			posArr1++
-		} else if array2[posArr2] < array1[posArr1] {
+			//} else if array2[posArr2] <= array1[posArr1] {
+		} else {
 			sorted[sortedPos] = array2[posArr2]
 			posArr2++
 		}
