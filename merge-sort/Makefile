@@ -1,2 +1,2 @@
 run:
-	go run main.go algorithm.go
+	go run main.go

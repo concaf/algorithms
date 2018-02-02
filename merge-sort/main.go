@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"reflect"
+	"github.com/containscafeine/algorithms/merge-sort/algorithm"
 )
 
 const arrayLength = 20
@@ -21,7 +22,7 @@ func main() {
 	log.SetOutput(new(logWriter))
 
 	toSort := rand.Perm(arrayLength)
-	sorted := mergeSort(toSort)
+	sorted := algorithm.MergeSort(toSort)
 	log.Printf("The sorted array is: %v", sorted)
 
 	if reflect.DeepEqual(sorted, integerSequence(arrayLength)) {

@@ -1,8 +1,8 @@
-package main
+package algorithm
 
 import "log"
 
-func mergeSort(input []int) []int {
+func MergeSort(input []int) []int {
 	if len(input) == 0 {
 		log.Fatal("The input array has no elements")
 	}
@@ -11,8 +11,8 @@ func mergeSort(input []int) []int {
 		return input
 	}
 
-	array1 := mergeSort(input[:len(input)/2])
-	array2 := mergeSort(input[len(input)/2:])
+	array1 := MergeSort(input[:len(input)/2])
+	array2 := MergeSort(input[len(input)/2:])
 	return merge(array1, array2)
 }
 
