@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/containscafeine/algorithms/quick-sort/algorithm"
 	"log"
 	"math/rand"
 	"reflect"
-	"github.com/containscafeine/algorithms/quick-sort/algorithm"
+	"time"
 )
 
 const arrayLength = 20000
@@ -21,8 +22,13 @@ func main() {
 	log.SetFlags(0)
 	log.SetOutput(new(logWriter))
 
+	choosePivot := func(input []int) int {
+		rand.Seed(time.Now().UnixNano())
+		return rand.Intn(len(input))
+	}
+
 	toSort := rand.Perm(arrayLength)
-	algorithm.QuickSort(toSort)
+	algorithm.QuickSort(toSort, choosePivot)
 	log.Printf("The sorted array is: %v", toSort)
 
 	if reflect.DeepEqual(toSort, integerSequence(arrayLength)) {

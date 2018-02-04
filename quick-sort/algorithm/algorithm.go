@@ -1,11 +1,6 @@
 package algorithm
 
-import (
-	"math/rand"
-	"time"
-)
-
-func QuickSort(input []int) {
+func QuickSort(input []int, choosePivot func(input []int) int) {
 	if len(input) <= 1 {
 		return
 	}
@@ -25,11 +20,6 @@ func QuickSort(input []int) {
 	// Swap to put pivot in its actual position after sorting
 	input[pivotIndex], input[deflection-1] = input[deflection-1], input[pivotIndex]
 
-	QuickSort(input[:deflection-1])
-	QuickSort(input[deflection:])
-}
-
-func choosePivot(input []int) int {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(len(input))
+	QuickSort(input[:deflection-1], choosePivot)
+	QuickSort(input[deflection:], choosePivot)
 }
