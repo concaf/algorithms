@@ -28,8 +28,9 @@ func main() {
 	}
 
 	toSort := rand.Perm(arrayLength)
-	algorithm.QuickSort(toSort, choosePivot)
+	comparisons := algorithm.QuickSort(toSort, choosePivot)
 	log.Printf("The sorted array is: %v", toSort)
+	log.Printf("Total %v comparisons were made!", comparisons)
 
 	if reflect.DeepEqual(toSort, integerSequence(arrayLength)) {
 		log.Println("The array has been successfully sorted")

@@ -1,8 +1,9 @@
 package algorithm
 
-func QuickSort(input []int, choosePivot func(input []int) int) {
+func QuickSort(input []int, choosePivot func(input []int) int) int {
+	var comparisons int
 	if len(input) <= 1 {
-		return
+		return comparisons
 	}
 
 	pivotIndex := choosePivot(input)
@@ -16,10 +17,16 @@ func QuickSort(input []int, choosePivot func(input []int) int) {
 			input[unpartitioned], input[deflection] = input[deflection], input[unpartitioned]
 			deflection++
 		}
+		comparisons++
 	}
 	// Swap to put pivot in its actual position after sorting
 	input[pivotIndex], input[deflection-1] = input[deflection-1], input[pivotIndex]
 
-	QuickSort(input[:deflection-1], choosePivot)
-	QuickSort(input[deflection:], choosePivot)
+	array1 := input[:deflection-1]
+	comparisons = comparisons + QuickSort(array1, choosePivot)
+
+	array2 := input[deflection:]
+	comparisons = comparisons + QuickSort(array2, choosePivot)
+
+	return comparisons
 }
