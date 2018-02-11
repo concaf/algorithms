@@ -20,9 +20,12 @@ func main() {
 	log.SetFlags(0)
 	log.SetOutput(new(logWriter))
 
-	input := integerSequence(arrayLength)
+	//input := integerSequence(arrayLength)
+	input := []int{0, 2, 3, 4, 10, 40, 44}
 	log.Printf("Input is: %v", input)
-	position := algorithm.BinarySearch(input, 800)
+	element := 44
+	log.Printf("Searching for: %v", element)
+	position := algorithm.BinarySearch(input, element)
 	log.Printf("Found element at position: %v", position)
 }
 
