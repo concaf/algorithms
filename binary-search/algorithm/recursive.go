@@ -1,6 +1,6 @@
 package algorithm
 
-func BinarySearch(array []int, element int) int {
+func BinarySearchRecursive(array []int, element int) int {
 	return binarySearchLeftRight(array, element, 0, len(array)-1)
 }
 

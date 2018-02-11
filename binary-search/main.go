@@ -25,8 +25,10 @@ func main() {
 	log.Printf("Input is: %v", input)
 	element := 44
 	log.Printf("Searching for: %v", element)
-	position := algorithm.BinarySearch(input, element)
-	log.Printf("Found element at position: %v", position)
+	positionRecursive := algorithm.BinarySearchRecursive(input, element)
+	log.Printf("Found element at position: %v recursively", positionRecursive)
+	positionIterative := algorithm.BinarySearchIterative(input, element)
+	log.Printf("Found element at position: %v iteratively", positionIterative)
 }
 
 func integerSequence(n int) []int {
