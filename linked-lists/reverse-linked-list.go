@@ -8,6 +8,9 @@ type listNode struct {
 }
 
 func (l *listNode) print() string {
+	if l == nil {
+		return ""
+	}
 	if l.next == nil {
 		return fmt.Sprintf("%v -> nil", l.value)
 	}
