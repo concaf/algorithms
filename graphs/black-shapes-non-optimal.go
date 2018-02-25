@@ -30,7 +30,7 @@ func black(A []string) int {
 					fmt.Printf("Starting BFS at: %v\n", node)
 					visited = node.bfs(visited, A, stringLength, inputLength)
 					count++
-					fmt.Printf("Total black count is now: %v\n", count)
+					fmt.Printf("Total black count is now: %v\n\n", count)
 				}
 			}
 		}
@@ -95,7 +95,7 @@ func (node *X) getNeighbors(input []string, visited []X, stringLength int, input
 	}
 
 	// Add right
-	if node.position < stringLength - 1 {
+	if node.position < stringLength-1 {
 		potentialNeighbor := X{
 			stringNumber: node.stringNumber,
 			position:     node.position + 1,
@@ -117,7 +117,7 @@ func (node *X) getNeighbors(input []string, visited []X, stringLength int, input
 	}
 
 	// Add bottom
-	if node.stringNumber < inputLength - 1 {
+	if node.stringNumber < inputLength-1 {
 		potentialNeighbor := X{
 			stringNumber: node.stringNumber + 1,
 			position:     node.position,
@@ -133,17 +133,12 @@ func (node *X) getNeighbors(input []string, visited []X, stringLength int, input
 
 func main() {
 	input := []string{
-		//"OOOXOOO",
-		//"OOXXOXO",
-		//"OXOOOXO",
-		//"OOXXXOO",
-		//"OOXXXOO",
-		//"OOXXXOO",
-		"OOXOO",
-		"OOXOO",
-		"XXXXX",
-		"OOXOO",
-		"OOXOO",
+		"OOOXOOO",
+		"OOXXOXO",
+		"OXOOOXO",
+		"OOXXXOO",
+		"OOXXXOO",
+		"OOXXXOO",
 	}
 	fmt.Sprintf("Input is:\n")
 	for _, str := range input {
