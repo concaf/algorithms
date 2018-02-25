@@ -15,7 +15,6 @@ type treeNode struct {
  * @Output Integer array.
  */
 func inorderTraversal(A *treeNode) []int {
-	//fmt.Printf("Now traversing: %v\n", A.value)
 	var arr []int
 
 	if A.left != nil {
