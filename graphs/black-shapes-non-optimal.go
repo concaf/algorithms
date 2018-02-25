@@ -8,6 +8,13 @@ import "fmt"
  * @Output Integer
  */
 func black(A []string) int {
+	inputLength := len(A)
+	var stringLength int
+	if len(A) != 0 {
+		stringLength = len(A[0])
+	}
+	fmt.Printf("Input length is: %v\n", inputLength)
+	fmt.Printf("String length is: %v\n", stringLength)
 	count := 0
 	var visited []X
 	for num, str := range A {
@@ -21,7 +28,7 @@ func black(A []string) int {
 				if !node.isVisited(visited) {
 					fmt.Printf("Node was not visited before: %v\n", node)
 					fmt.Printf("Starting BFS at: %v\n", node)
-					visited = node.bfs(visited, A)
+					visited = node.bfs(visited, A, stringLength, inputLength)
 					count++
 					fmt.Printf("Total black count is now: %v\n", count)
 				}
@@ -36,7 +43,7 @@ type X struct {
 	position     int
 }
 
-func (node *X) bfs(visited []X, input []string) []X {
+func (node *X) bfs(visited []X, input []string, stringLength int, inputLength int) []X {
 	var queue []X
 	queue = append(queue, *node)
 
@@ -48,7 +55,7 @@ func (node *X) bfs(visited []X, input []string) []X {
 		queue = queue[1:]
 		fmt.Printf("Visited nodes are: %v\n", visited)
 
-		queue = append(queue, current.getNeighbors(input, visited)...)
+		queue = append(queue, current.getNeighbors(input, visited, stringLength, inputLength)...)
 	}
 	return visited
 }
@@ -73,7 +80,7 @@ func (node *X) isX(input []string) bool {
 	return false
 }
 
-func (node *X) getNeighbors(input []string, visited []X) []X {
+func (node *X) getNeighbors(input []string, visited []X, stringLength int, inputLength int) []X {
 	var neighbors []X
 
 	// Add left
@@ -88,7 +95,7 @@ func (node *X) getNeighbors(input []string, visited []X) []X {
 	}
 
 	// Add right
-	if node.position < len(input[node.stringNumber])-1 {
+	if node.position < stringLength - 1 {
 		potentialNeighbor := X{
 			stringNumber: node.stringNumber,
 			position:     node.position + 1,
@@ -110,7 +117,7 @@ func (node *X) getNeighbors(input []string, visited []X) []X {
 	}
 
 	// Add bottom
-	if node.stringNumber < len(input)-1 {
+	if node.stringNumber < inputLength - 1 {
 		potentialNeighbor := X{
 			stringNumber: node.stringNumber + 1,
 			position:     node.position,
@@ -126,12 +133,17 @@ func (node *X) getNeighbors(input []string, visited []X) []X {
 
 func main() {
 	input := []string{
-		"OOOXOOO",
-		"OOXXOXO",
-		"OXOOOXO",
-		"OOXXXOO",
-		"OOXXXOO",
-		"OOXXXOO",
+		//"OOOXOOO",
+		//"OOXXOXO",
+		//"OXOOOXO",
+		//"OOXXXOO",
+		//"OOXXXOO",
+		//"OOXXXOO",
+		"OOXOO",
+		"OOXOO",
+		"XXXXX",
+		"OOXOO",
+		"OOXOO",
 	}
 	fmt.Sprintf("Input is:\n")
 	for _, str := range input {
