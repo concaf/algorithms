@@ -16,7 +16,7 @@ func black(A []string) int {
 	fmt.Printf("Input length is: %v\n", inputLength)
 	fmt.Printf("String length is: %v\n", stringLength)
 	count := 0
-	var visited []X
+	visited := make(map[X]bool)
 	for num, str := range A {
 		for pos, char := range str {
 			if string(char) == "X" {
@@ -28,7 +28,7 @@ func black(A []string) int {
 				if !node.isVisited(visited) {
 					fmt.Printf("Node was not visited before: %v\n", node)
 					fmt.Printf("Starting BFS at: %v\n", node)
-					visited = node.bfs(visited, A, stringLength, inputLength)
+					node.bfs(visited, A, stringLength, inputLength)
 					count++
 					fmt.Printf("Total black count is now: %v\n\n", count)
 				}
@@ -43,7 +43,7 @@ type X struct {
 	position     int
 }
 
-func (node *X) bfs(visited []X, input []string, stringLength int, inputLength int) []X {
+func (node *X) bfs(visited map[X]bool, input []string, stringLength int, inputLength int) {
 	var queue []X
 	queue = append(queue, *node)
 
@@ -51,24 +51,21 @@ func (node *X) bfs(visited []X, input []string, stringLength int, inputLength in
 		fmt.Printf("Queue is: %v\n", queue)
 		current := queue[0]
 		fmt.Printf("Current element: %v\n", current)
-		visited = current.markVisited(visited)
+		current.markVisited(visited)
 		queue = queue[1:]
 		fmt.Printf("Visited nodes are: %v\n", visited)
 
 		queue = append(queue, current.getNeighbors(input, visited, stringLength, inputLength)...)
 	}
-	return visited
 }
 
-func (node *X) markVisited(visited []X) []X {
-	return append(visited, *node)
+func (node *X) markVisited(visited map[X]bool) {
+	visited[*node] = true
 }
 
-func (node *X) isVisited(visited []X) bool {
-	for _, alreadyVisited := range visited {
-		if *node == alreadyVisited {
-			return true
-		}
+func (node *X) isVisited(visited map[X]bool) bool {
+	if _, ok := visited[*node]; ok {
+		return true
 	}
 	return false
 }
@@ -80,7 +77,7 @@ func (node *X) isX(input []string) bool {
 	return false
 }
 
-func (node *X) getNeighbors(input []string, visited []X, stringLength int, inputLength int) []X {
+func (node *X) getNeighbors(input []string, visited map[X]bool, stringLength int, inputLength int) []X {
 	var neighbors []X
 
 	// Add left
