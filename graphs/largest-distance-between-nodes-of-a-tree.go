@@ -26,13 +26,28 @@ func solve(A []int) int {
 		return 0
 	}
 
-	farthestNodeFromRoot, _ := dfs(0, A, -1, map[int]bool{})
-	_, maxCount := dfs(farthestNodeFromRoot, A, -1, map[int]bool{})
+	// map of node and neighbors
+	input := make(map[int][]int)
+	root := 0
+
+	for i := range A {
+		if A[i] == -1 {
+			root = i
+		} else {
+			input[i] = append(input[i], A[i])
+			input[A[i]] = append(input[A[i]], i)
+		}
+	}
+
+	fmt.Printf("Root is: %v, tree is: %v\n", root, input)
+
+	farthestNodeFromRoot, _ := dfs(root, input, -1, map[int]bool{})
+	_, maxCount := dfs(farthestNodeFromRoot, input, -1, map[int]bool{})
 	return maxCount
 }
 
 // Returns the farthest leaf and its distance
-func dfs(node int, input []int, distance int, visited map[int]bool) (int, int) {
+func dfs(node int, input map[int][]int, distance int, visited map[int]bool) (int, int) {
 
 	fmt.Printf("Marking node as visited: %v\n", node)
 
@@ -60,14 +75,12 @@ func dfs(node int, input []int, distance int, visited map[int]bool) (int, int) {
 	return currentLeaf, currentMax
 }
 
-func getUnvisitedNeighbors(node int, input []int, visited map[int]bool) []int {
+func getUnvisitedNeighbors(node int, input map[int][]int, visited map[int]bool) []int {
 	var neighbors []int
-	if input[node] != -1 && !isVisited(input[node], visited) {
-		neighbors = append(neighbors, input[node])
-	}
-	for i, n := range input {
-		if n == node && !isVisited(i, visited) {
-			neighbors = append(neighbors, i)
+
+	for _, neighbor := range input[node] {
+		if !isVisited(neighbor, visited) {
+			neighbors = append(neighbors, neighbor)
 		}
 	}
 	fmt.Printf("Neighbors of %v are: %v\n", node, neighbors)
