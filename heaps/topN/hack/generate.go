@@ -6,8 +6,10 @@ import (
 	"os"
 )
 
+const fileName = "input.txt"
+
 func main() {
-	generateAndWrite(100000000, "input.txt")
+	generateAndWrite(1000, fileName)
 }
 
 func generateAndWrite(n int, filename string) {

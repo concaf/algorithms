@@ -23,16 +23,12 @@ func main() {
 	scanner := bufio.NewScanner(f)
 
 	heap := algorithm.New()
-	var count int
 	for scanner.Scan() {
-		count++
-		fmt.Println(count)
 		input, err := strconv.Atoi(scanner.Text())
 		checkError(err)
 		heap.Insert(input)
 	}
 	fmt.Println(heap.GetMin())
-
 }
 
 func checkError(err error) {
