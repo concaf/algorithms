@@ -22,6 +22,7 @@ func (q *queue) enqueue(value *Node) {
 		q.last.next = &element{
 			value: value,
 		}
+		q.last = q.last.next
 	}
 }
 

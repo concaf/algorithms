@@ -9,12 +9,24 @@ type Node struct {
 	parent *Node
 }
 
+func New() *Node {
+	return &Node{
+		value: -1,
+	}
+}
+
 func (n *Node) GetMin() int {
 	return n.value
 }
 
 func (n *Node) ExtractMin() int {
+
 	minimumValue := n.value
+
+	if n.parent == nil {
+		*n = *New()
+		return minimumValue
+	}
 
 	var q queue
 	q.enqueue(n)
@@ -42,8 +54,15 @@ func (n *Node) ExtractMin() int {
 }
 
 func (n *Node) Insert(value int) {
+
+	if n.value == -1 {
+		n.value = value
+		return
+	}
+
 	var q queue
 	q.enqueue(n)
+
 	for !q.isEmpty() {
 		current := q.dequeue()
 		if current.left == nil {
@@ -67,6 +86,9 @@ func (n *Node) Insert(value int) {
 }
 
 func (n *Node) balanceWithParent() {
+	if n.parent == nil {
+		return
+	}
 	if n.value < n.parent.value {
 		n.value, n.parent.value = n.parent.value, n.value
 		n.parent.balanceWithParent()

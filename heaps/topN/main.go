@@ -6,7 +6,9 @@ import (
 )
 
 func main() {
-	var heap algorithm.Node
-	heap.Insert(1)
+	heap := algorithm.New()
+	heap.Insert(100)
+
+	heap.ExtractMin()
 	fmt.Println(heap.GetMin())
 }
