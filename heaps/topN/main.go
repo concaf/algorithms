@@ -6,29 +6,48 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
-	"github.com/containscafeine/algorithms/heaps/topN/algorithm"
 	"os"
 	"strconv"
+
+	"github.com/containscafeine/algorithms/heaps/topN/algorithm"
 )
 
-const fileName = "input.txt"
+var (
+	file    string
+	numbers int
+)
 
 func main() {
+	parse()
 
-	f, err := os.Open(fileName)
+	f, err := os.Open(file)
 	checkError(err)
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
 
 	heap := algorithm.New()
+	var count int
 	for scanner.Scan() {
 		input, err := strconv.Atoi(scanner.Text())
 		checkError(err)
-		heap.Insert(input)
+
+		if count < numbers {
+			heap.Insert(input)
+		} else if input > heap.GetMin() {
+			heap.ExtractMin()
+			heap.Insert(input)
+		}
+
+		count++
 	}
-	fmt.Println(heap.GetMin())
+
+	fmt.Printf("The maximum %v numbers in %v are:\n", numbers, file)
+	for heap.GetMin() != -1 {
+		fmt.Println(heap.ExtractMin())
+	}
 }
 
 func checkError(err error) {
@@ -36,4 +55,10 @@ func checkError(err error) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+}
+
+func parse() {
+	flag.StringVar(&file, "file", "input.txt", "file to read")
+	flag.IntVar(&numbers, "numbers", 10, "how many largest numbers to return")
+	flag.Parse()
 }

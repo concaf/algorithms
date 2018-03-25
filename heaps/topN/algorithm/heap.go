@@ -23,7 +23,7 @@ func (n *Node) ExtractMin() int {
 
 	minimumValue := n.value
 
-	if n.parent == nil {
+	if n.parent == nil && n.left == nil && n.right == nil {
 		*n = *New()
 		return minimumValue
 	}
