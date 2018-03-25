@@ -44,9 +44,14 @@ func main() {
 		count++
 	}
 
-	fmt.Printf("The maximum %v numbers in %v are:\n", numbers, file)
+	var minFirstArray []int
 	for heap.GetMin() != -1 {
-		fmt.Println(heap.ExtractMin())
+		minFirstArray = append(minFirstArray, heap.ExtractMin())
+	}
+
+	fmt.Printf("The maximum %v numbers in %v are:\n", numbers, file)
+	for i := len(minFirstArray) - 1; i >= 0; i-- {
+		fmt.Println(minFirstArray[i])
 	}
 }
 
@@ -59,6 +64,6 @@ func checkError(err error) {
 
 func parse() {
 	flag.StringVar(&file, "file", "input.txt", "file to read")
-	flag.IntVar(&numbers, "numbers", 10, "how many largest numbers to return")
+	flag.IntVar(&numbers, "numbers", 8, "how many largest numbers to return")
 	flag.Parse()
 }
