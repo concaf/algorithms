@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-    generateAndWrite(100000000, "input.txt")
+	generateAndWrite(100000000, "input.txt")
 }
 
 func generateAndWrite(n int, filename string) {
