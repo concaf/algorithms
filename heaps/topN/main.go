@@ -30,14 +30,20 @@ func main() {
 
 	heap := algorithm.New()
 	var count int
+
+	// This loop runs for number of lines in the file, say m
+	// O(m)
 	for scanner.Scan() {
 		input, err := strconv.Atoi(scanner.Text())
 		checkError(err)
 
 		if count < numbers {
+			// O(log n)
 			heap.Insert(input)
 		} else if input > heap.GetMin() {
+			// O(log n)
 			heap.ExtractMin()
+			// O(log n)
 			heap.Insert(input)
 		}
 
@@ -45,11 +51,14 @@ func main() {
 	}
 
 	var minFirstArray []int
+
+	// O(n)
 	for heap.GetMin() != -1 {
 		minFirstArray = append(minFirstArray, heap.ExtractMin())
 	}
 
 	fmt.Printf("The maximum %v numbers in %v are:\n", numbers, file)
+	// O(n)
 	for i := len(minFirstArray) - 1; i >= 0; i-- {
 		fmt.Println(minFirstArray[i])
 	}
