@@ -1,6 +1,9 @@
 package algorithm
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 type Node struct {
 	value  int
@@ -55,6 +58,7 @@ func (n *Node) ExtractMin() int {
 
 func (n *Node) Insert(value int) {
 
+	// when heap is empty
 	if n.value == -1 {
 		n.value = value
 		return
@@ -106,9 +110,32 @@ func (n *Node) balanceWithChildren() {
 		}
 	} else {
 		minNode := getMinimumValueNode(n.left, n.right)
-		n.value, minNode.value = minNode.value, n.value
-		minNode.balanceWithChildren()
+		if n.value > minNode.value {
+			n.value, minNode.value = minNode.value, n.value
+			minNode.balanceWithChildren()
+		}
 	}
+}
+
+func (n *Node) PrintHeap() {
+	if n == nil {
+		return
+	}
+	fmt.Printf("node: %v ", n.value)
+	if n.left != nil {
+		fmt.Printf("left: %v ", n.left.value)
+	} else {
+		fmt.Printf("left: nil ")
+	}
+	if n.right != nil {
+		fmt.Printf("right: %v ", n.right.value)
+	} else {
+		fmt.Printf("right: nil ")
+	}
+	fmt.Println()
+
+	n.left.PrintHeap()
+	n.right.PrintHeap()
 }
 
 func getMinimumValueNode(node1, node2 *Node) *Node {
